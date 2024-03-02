@@ -12,6 +12,7 @@ export PATH="/opt/homebrew/opt/php@7.4/sbin:$PATH"
 export PATH="/Users/karol/.dotnet/tools:$PATH"
 alias vim="nvim"
 eval "$(oh-my-posh init zsh --config /Users/karol/Documents/theme_zsh/catpuccin_mocha.omp.json )"
+alias air='$(go env GOPATH)/bin/air'
 
 listening() {
     if [ $# -eq 0 ]; then
