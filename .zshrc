@@ -24,8 +24,22 @@ listening() {
     fi
 }
 source ${HOME}/perl5/perlbrew/etc/bashrc
-alias config='/usr/bin/git --git-dir=/Users/karol/.cfg/.git/ --work-tree=/Users/karol'
-alias config_cp="cp -a ~/.config/nvim/lua/custom/ ~/.cfg/nvim/lua/custom/"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-tmux
+
+session_name="sesh"
+
+# 1. First you check if a tmux session exists with a given name.
+tmux has-session -t=$session_name 2> /dev/null
+
+# 2. Create the session if it doesn't exists.
+if [[ $? -ne 0 ]]; then
+  TMUX='' tmux new-session -d -s "$session_name"
+fi
+
+# 3. Attach if outside of tmux, switch if you're in tmux.
+if [[ -z "$TMUX" ]]; then
+  tmux attach -t "$session_name"
+else
+  tmux switch-client -t "$session_name"
+fi
